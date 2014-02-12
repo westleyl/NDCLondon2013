@@ -1,0 +1,18 @@
+[
+  {
+    "EventId": "6D2E1E12-4F99-4F3C-869F-6C45A4893456", 
+	"Data": {
+				"conference" : "DDDNorth 3",
+				"room" : "108 (DGIC)",
+				"title" : "TDD Where Did It All Go Wrong?",
+				"speaker" : "Ian Cooper",
+				"startTime" : "09:30",
+				"endTime" : "10:30"
+		}, 
+   "EventType": "Session", 
+   "Metadata": 	{
+			"something": "AValue"
+            	},
+   "ExpectedVersion": "-1"
+  }
+]

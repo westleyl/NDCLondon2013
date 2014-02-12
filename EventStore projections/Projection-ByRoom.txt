@@ -1,0 +1,37 @@
+1. Sessions-ByRoom
+
+Use the management console, click on Projections, New Projection, give it a name and copy in the 
+JavaScript below.  Select Continuous, tick Emit Enabled and then click on Post.  It should run 
+immediately.  You may need the admin login for the management console, 'admin'/'changeit'.
+
+fromStream('DDDNorth3')
+    .when({
+        '$any': function (state, event) {
+            var roomNumber = event.body['room'];
+            linkTo('Room-' + roomNumber, event);
+        } 
+    });
+	
+	
+2. Session-ByRoom-WithState
+
+With the managment console, you can edit a projection; select it, click Stop, click Edit, replace 
+the JavaScript, click Save, then click Start to run it.
+	
+fromStream('DDDNorth3')
+    .when({
+        $init: function() {
+           return { count: 0 }
+        },
+        '$any': function (state, event) {
+            var roomNumber = event.body['room'];
+            linkTo('Room-' + roomNumber, event);
+    		state.count +=1;
+        } 
+    });
+	
+-- View state live
+http://127.0.0.1:2213/projection/SessionsByRoom/state
+	
+If  Liam had had time, he could have delegates marking rooms, and the state could be a count of delegates, 
+emitted with time into a stream.  i.e. 10:01 – 10 people, 10:02 – 11 people.

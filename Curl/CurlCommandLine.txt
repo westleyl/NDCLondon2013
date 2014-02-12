@@ -1,0 +1,39 @@
+Run curl from the command prompt, either set a path to the curl installation folder, or run from that folder.
+
+1. GET stats stream - need username/password
+
+# Json 
+curl -u admin:changeit -H "Accept:application/json" http://127.0.0.1:2213/streams/$stats-127.0.0.1:2113
+
+# XML 
+curl -u admin:changeit -H "Accept:application/atom+xml" http://127.0.0.1:2213/streams/$stats-127.0.0.1:2113
+
+# Most recent event
+curl -u admin:changeit -H "Accept:application/json" http://127.0.0.1:2213/streams/$stats-127.0.0.1:2113/head/backward/1
+
+2. SUBMIT an event - to DDDNorth3
+
+curl -i -u admin:changeit -d @SampleEvent.json -H "Content-Type: application/json" -X POST http://127.0.0.1:2213/streams/DDDNorth3
+
+--Sample event (save in SampleEvent.json)
+[
+  {
+    "EventId": "0f7fac5b-d9cb-469f-a167-70867728950e", 
+	"Data": {
+				"Conference" : "DDDNorth 3",
+				"Room" : "108 (DGIC)",
+				"SessionTitle" : "TDD Where Did It All Go Wrong?",
+				"SessionSpeaker" : "Ian Cooper",
+				"SessionStartTime" : "09:30",
+				"SessionEndTime" : "10:30"
+		}, 
+   "EventType": "Type", 
+   "Metadata": 	{
+			"Something": "AValue"
+            	},
+   "ExpectedVersion": "-1"
+  }
+]
+
+# Check we submitted OK - get some data
+curl -u admin:changeit -H "Accept:application/atom+xml" http://127.0.0.1:2213/streams/DDDNorth3
